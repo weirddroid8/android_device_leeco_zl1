@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.leeco_zl1"
 
 #include <android/log.h>
 #include <hidl/HidlSupport.h>
@@ -23,14 +23,36 @@
 #include <android/hardware/biometrics/fingerprint/2.1/types.h>
 #include "BiometricsFingerprint.h"
 
+#include <cutils/properties.h>
+#include <binder/ProcessState.h>
+
 using android::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
 using android::hardware::biometrics::fingerprint::V2_1::implementation::BiometricsFingerprint;
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 using android::sp;
 
+bool is_goodix = false;
+
 int main() {
+    char vend[PROPERTY_VALUE_MAX];
+    property_get("ro.hardware.fingerprint", vend, "none");
+
+    if (!strcmp(vend, "none")) {
+    	ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
+        return 1;
+    } else if (!strcmp(vend, "goodix")) {
+        ALOGI("is_goodix = true");
+        is_goodix = true;
+    }
+
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
+
+    if (is_goodix) {
+        // the conventional HAL might start binder services
+        android::ProcessState::initWithDriver("/dev/vndbinder");
+        android::ProcessState::self()->startThreadPool();
+    }
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 

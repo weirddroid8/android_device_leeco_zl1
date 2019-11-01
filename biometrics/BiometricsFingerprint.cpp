@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service"
-#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.leeco_zl1"
+#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.leeco_zl1"
 
 #include <hardware/hw_auth_token.h>
 
@@ -195,8 +195,11 @@ Return<RequestStatus> BiometricsFingerprint::setActiveGroup(uint32_t gid,
         return RequestStatus::SYS_EINVAL;
     }
 
-    return ErrorFilter(mDevice->set_active_group(mDevice, gid,
-                                                    storePath.c_str()));
+    int ret = mDevice->set_active_group(mDevice, gid, storePath.c_str());
+    /* set active group hack for goodix */
+    if ((ret > 0) && is_goodix)
+        ret = 0;
+    return ErrorFilter(ret);
 }
 
 Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId,
@@ -239,10 +242,10 @@ fingerprint_device_t* BiometricsFingerprint::openHal() {
         return nullptr;
     }
 
-    if (kVersion != device->version) {
+    if (kVersion != device->version && !is_goodix) {
         // enforce version on new devices because of HIDL@2.1 translation layer
         ALOGE("Wrong fp version. Expected %d, got %d", kVersion, device->version);
-        return nullptr;
+        // return nullptr;
     }
 
     fingerprint_device_t* fp_device =
