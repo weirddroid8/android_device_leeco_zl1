@@ -230,6 +230,9 @@ lib64/libfp_client5118m.so:vendor/lib64/libfp_client5118m.so
 lib64/libfpnav5118m.so:vendor/lib64/libfpnav5118m.so
 lib64/libfpservice5118m.so:vendor/lib64/libfpservice5118m.so
 
+# Fingerprint sensor - from LineageOS 17.1 and modified for our fp blobs
+-vendor/lib64/libgxbndr.so|72dce8a8238d94c777e7a95cd66911a7c845e5c6
+
 # NFC firmware - from oneplus3 - 9/PKQ1.181203.001/1903190014
 vendor/lib/libpn548ad_fw.so|e78f2c9e7a5cb0001d2f71a69f37ec8261fb05b8
 

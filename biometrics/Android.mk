@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := \
     fingerprintd/wrapper.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    libbinder \
+    libgxbndr \
     libcutils \
     liblog \
     libhidlbase \
