@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "biometrics.fingerprint@2.0-service.leeco_zl1"
-
-#include <binder/ProcessState.h>
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.0-service.leeco_zl1"
 
 #include <android/log.h>
 #include <hidl/HidlSupport.h>
 #include <hidl/HidlTransportSupport.h>
 #include <android/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
 #include <android/hardware/biometrics/fingerprint/2.1/types.h>
-
 #include "BiometricsFingerprint.h"
+
 #include <cutils/properties.h>
 #include <binder/ProcessState.h>
 #include <errno.h>
@@ -45,14 +43,13 @@ int main() {
     property_get("ro.hardware.fingerprint", vend, "none");
 
     if (!strcmp(vend, "none")) {
-        ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
+    	ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
         return 1;
     } else if (!strcmp(vend, "goodix")) {
         ALOGI("is_goodix = true");
         is_goodix = true;
     }
 
-    ALOGI("Start biometrics");
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
     if (is_goodix) {
@@ -62,12 +59,11 @@ int main() {
         }
 
         // the conventional HAL might start binder services
-        android::ProcessState::initWithDriver("/dev/binder");
+        android::ProcessState::initWithDriver("/dev/vndbinder");
         android::ProcessState::self()->startThreadPool();
     }
 
-    /* process Binder transaction as a single-threaded program. */
-    configureRpcThreadpool(1, true /* callerWillJoin */);
+    configureRpcThreadpool(1, true /*callerWillJoin*/);
 
     if (bio != nullptr) {
         if (::android::OK != bio->registerAsService()) {
