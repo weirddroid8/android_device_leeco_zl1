@@ -53,7 +53,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.0-service.leeco_zl1 \
+    android.hardware.biometrics.fingerprint@2.1-service.leeco_zl1 \
     libbacktrace-vendor \
     libstdc++.vendor \
     libunwind-vendor
