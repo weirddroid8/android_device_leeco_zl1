@@ -28,13 +28,19 @@ function blob_fixup() {
 
     # Patch blobs for VNDK
     vendor/bin/gx_fpd)
-        patchelf --replace-needed "libunwind.so" "libunwind-vendor.so" "${2}" 
+        patchelf --replace-needed "libunwind.so" "libunwind-vendor.so" "${2}"
         patchelf --replace-needed "libbacktrace.so" "libbacktrace-vendor.so" "${2}"
         ;;
 
     # Patch blobs for VNDK
     vendor/lib64/hw/fingerprint.msm8996.so)
         patchelf --remove-needed "libandroid_runtime.so" "${2}"
+        ;;
+        
+    # Patch blobs for VNDK
+    vendor/bin/gx_fpd)
+        patchelf --add-needed "_ZN7android22checkCallingPermissionERKNS_8String16E" "${2}"
+        patchelf --add-needed "__android_log_print" "${2}"
         ;;
 
     # Hex edit /firmware/image to /vendor/firmware_mnt to delete the outdated rootdir symlinks
