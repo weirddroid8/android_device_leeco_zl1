@@ -49,12 +49,5 @@ BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 #BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/public
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 
-# Shims
-TARGET_LD_SHIM_LIBS := \
-   /vendor/bin/gx_fpd|fakelogprint.so \
-   /vendor/bin/gx_fpd|libshims_gxfpd.so \
-   /vendor/lib64/hw/gxfingerprint5118m.default.so|fakelogprint.so \
-   /vendor/lib64/hw/fingerprint.msm8996.so|fakelogprint.so
-
 # inherit from the proprietary version
 -include vendor/leeco/zl1/BoardConfigVendor.mk
