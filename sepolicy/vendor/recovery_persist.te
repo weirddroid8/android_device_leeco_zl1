@@ -1,0 +1,2 @@
+dontaudit recovery_persist gx_fpd_exec:file read;
+dontaudit recovery_persist vendor_file:file read;

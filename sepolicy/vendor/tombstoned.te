@@ -1,0 +1,2 @@
+dontaudit tombstoned gx_fpd_exec:file read;
+dontaudit tombstoned vendor_file:file read;

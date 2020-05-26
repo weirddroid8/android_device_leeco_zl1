@@ -1,0 +1,2 @@
+dontaudit ashmemd gx_fpd_exec:file read;
+dontaudit ashmemd vendor_file:file read;

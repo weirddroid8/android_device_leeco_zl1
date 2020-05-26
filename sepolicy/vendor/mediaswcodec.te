@@ -1,0 +1,2 @@
+dontaudit mediaswcodec gx_fpd_exec:file read;
+dontaudit mediaswcodec vendor_file:file read;

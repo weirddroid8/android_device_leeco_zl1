@@ -1,0 +1,2 @@
+dontaudit apexd gx_fpd_exec:file read;
+dontaudit apexd vendor_file:file read;

@@ -1,0 +1,2 @@
+dontaudit storaged gx_fpd_exec:file read;
+dontaudit storaged vendor_file:file read;

@@ -1,0 +1,2 @@
+dontaudit hal_ir_leeco_msm8996 gx_fpd_exec:file read;
+dontaudit hal_ir_leeco_msm8996 vendor_file:file read;

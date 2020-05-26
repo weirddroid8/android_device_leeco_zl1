@@ -1,0 +1,2 @@
+dontaudit bootstat gx_fpd_exec:file read;
+dontaudit bootstat vendor_file:file read;

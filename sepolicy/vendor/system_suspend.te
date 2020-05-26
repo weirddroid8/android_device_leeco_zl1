@@ -1,0 +1,2 @@
+dontaudit system_suspend gx_fpd_exec:file read;
+dontaudit system_suspend vendor_file:file read;

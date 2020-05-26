@@ -1,0 +1,2 @@
+dontaudit fsverity_init gx_fpd_exec:file read;
+dontaudit fsverity_init vendor_file:file read;

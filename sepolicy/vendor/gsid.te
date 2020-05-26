@@ -1,0 +1,2 @@
+dontaudit gsid gx_fpd_exec:file read;
+dontaudit gsid vendor_file:file read;

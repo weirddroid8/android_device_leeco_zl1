@@ -1,0 +1,2 @@
+dontaudit usbd gx_fpd_exec:file read;
+dontaudit usbd vendor_file:file read;

@@ -1,0 +1,2 @@
+dontaudit shell gx_fpd_exec:file read;
+dontaudit shell vendor_file:file read;

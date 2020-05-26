@@ -1,0 +1,2 @@
+dontaudit art_apex_boot_integrity gx_fpd_exec:file read;
+dontaudit art_apex_boot_integrity vendor_file:file read;

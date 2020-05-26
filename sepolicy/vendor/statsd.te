@@ -1,0 +1,2 @@
+dontaudit statsd gx_fpd_exec:file read;
+dontaudit statsd vendor_file:file read;

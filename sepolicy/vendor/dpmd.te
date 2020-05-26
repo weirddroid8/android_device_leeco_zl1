@@ -1,0 +1,2 @@
+dontaudit dpmd gx_fpd_exec:file read;
+dontaudit dpmd vendor_file:file read;

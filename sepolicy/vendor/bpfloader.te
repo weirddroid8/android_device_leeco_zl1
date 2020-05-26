@@ -1,0 +1,2 @@
+dontaudit bpfloader gx_fpd_exec:file read;
+dontaudit bpfloader vendor_file:file read;

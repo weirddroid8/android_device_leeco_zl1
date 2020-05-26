@@ -1,0 +1,2 @@
+dontaudit bootanim gx_fpd_exec:file read;
+dontaudit bootanim vendor_file:file read;
