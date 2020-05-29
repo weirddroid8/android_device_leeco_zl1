@@ -26,20 +26,27 @@ function blob_fixup() {
         sed -i "s|/firmware/image|/vendor/f/image|g" "${2}"
         ;;
 
-    # Patch blobs for VNDK
     vendor/bin/gx_fpd)
-        patchelf --replace-needed "libunwind.so" "libunwind-vendor.so" "${2}" 
-        patchelf --replace-needed "libbacktrace.so" "libbacktrace-vendor.so" "${2}"
+        # Patch blobs for VNDK
+        patchelf --remove-needed "libunwind.so" "${2}"
+        patchelf --remove-needed "libbacktrace.so" "${2}"
+        patchelf --add-needed "libshims_gxfpd.so" "${2}"
+        # Goodix FP HAL: Be quiet!
+        patchelf --add-needed "fakelogprint.so" "${2}"
         ;;
 
-    # Patch blobs for VNDK
     vendor/lib64/hw/fingerprint.msm8996.so)
+        # Patch blobs for VNDK
         patchelf --remove-needed "libandroid_runtime.so" "${2}"
+        # Goodix FP HAL: Be quiet!
+        patchelf --add-needed "fakelogprint.so" "${2}"
         ;;
 
-    # Hex edit /firmware/image to /vendor/firmware_mnt to delete the outdated rootdir symlinks
     vendor/lib64/hw/gxfingerprint5118m.default.so)
+        # Hex edit /firmware/image to /vendor/firmware_mnt to delete the outdated rootdir symlinks
         sed -i "s|/firmware/image|/vendor/f/image|g" "${2}"
+        # Goodix FP HAL: Be quiet!
+        patchelf --add-needed "fakelogprint.so" "${2}"
     esac
 }
 
